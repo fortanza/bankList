@@ -164,7 +164,7 @@ btnLogin.addEventListener('click', function (e) {
   );
   console.log(currentAccount);
 
-  if (currentAccount?.pin === +(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
@@ -182,7 +182,7 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = +(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
@@ -223,7 +223,7 @@ btnClose.addEventListener('click', function (e) {
 
   if (
     inputCloseUsername.value === currentAccount.username &&
-    +(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     const index = accounts.findIndex(
       acc => acc.username === currentAccount.username
@@ -264,7 +264,7 @@ btnSort.addEventListener('click', function (e) {
 // console.log(Number('23'));
 // console.log(+('23'));
 
-// Parsing 
+// Parsing
 // console.log(Number.parseInt('30px', 10));
 // console.log(Number.parseInt('e23',10));
 
@@ -325,6 +325,34 @@ btnSort.addEventListener('click', function (e) {
 
 // //Arrondi de decimal
 
-// console.log((2.7).toFixed(0)); // 3 
-// console.log((2.7).toFixed(3)); // 2.700 
+// console.log((2.7).toFixed(0)); // 3
+// console.log((2.7).toFixed(3)); // 2.700
 // console.log((2.345).toFixed(2)); // 2.35
+
+// ///////////////////////////////////////////////// 170. The Remainder Operator /////////////////////////////////////////////////
+
+console.log(5 % 2);
+console.log(5 / 2); // 5 = 2 * 2 +1
+
+console.log(8 % 3);
+console.log(8 / 3); // 8 = 2 * 3 + 2
+
+console.log(6 % 3);
+console.log(6 / 3);
+
+console.log(7 % 2);
+console.log(7 / 2);
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(8));
+console.log(isEven(23));
+console.log(isEven(514));
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    //0,2,4,6,8,9,10,......
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    // 0,3,6,9,.....
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
