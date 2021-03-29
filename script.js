@@ -81,19 +81,26 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/${year}`;
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+        <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,7 +149,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -154,6 +161,22 @@ const updateUI = function (acc) {
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+
+// FAKE ALWAYS LOGGED IN
+
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+
+const now = new Date();
+const day = `${now.getDate()}`.padStart(2, 0);
+const month = `${now.getMonth() + 1}`.padStart(2, 0);
+const year = now.getFullYear();
+const hour = `${now.getHours()}`.padStart(2, 0);
+const minutes = `${now.getMinutes()}`.padStart(2, 0);
+labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes}`;
+
+// day/month/year
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -170,6 +193,15 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+    
+    // Create Current date and time
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const minutes = now.getMinutes();
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -198,6 +230,12 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    //Add transfer dates
+
+    currentAccount.movementsDates.push(new Date().toDateString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+    
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -211,6 +249,9 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    //Add loan dates
+    currentAccount.movementsDates.push(new Date().toDateString());
 
     // Update UI
     updateUI(currentAccount);
@@ -369,11 +410,11 @@ labelBalance.addEventListener('click', function () {
 // console.log(44564654498645454984654544654545646548974545646545n)
 // console.log(BigInt(44564654498645454984654544654545646548974545646545));
 
-//Operation 
+//Operation
 // console.log(10000n + 10000n)
 // console.log(10000n + 44564654498645454984654544654545646548974545646545n)
 
-const huge = 44564654498645454984654544654545646548974545646545n
+const huge = 44564654498645454984654544654545646548974545646545n;
 const num = 23;
 
 //Exception
@@ -381,7 +422,7 @@ const num = 23;
 // console.log(20n > 15)
 // console.log(20n === 20)
 // console.log(typeof 20n)
-// console.log(20n == '20')  
+// console.log(20n == '20')
 
 // console.log(huge + ' is REALLY big!!!');
 
@@ -389,7 +430,6 @@ const num = 23;
 
 // console.log(10n / 3n);
 // console.log(10 / 3)
-
 
 // ///////////////////////////////////////////////// 172. Creating Dates /////////////////////////////////////////////////
 
@@ -402,7 +442,6 @@ const num = 23;
 // console.log(new Date('December 24, 2015'));
 // console.log(new Date(account1.movementsDates[0]));
 
-
 // console.log(new Date(2037,10,19,15,23,5));
 // console.log(new Date(2037,10,31));
 
@@ -412,14 +451,13 @@ const num = 23;
 
 // Working with dates
 
-const future = new Date(2037,10,19,15,23);
-console.log(future)
-console.log(future.getFullYear());
-console.log(future.getMonth());
-console.log(future.getDate());
-console.log(future.getDays());
-console.log(future.getHours());
-console.log(future.getMinutes());
-console.log(future.getSeconds());
-console.log(future.toISOString());
-
+// const future = new Date(2037,10,19,15,23);
+// console.log(future)
+// console.log(future.getFullYear());
+// console.log(future.getMonth());
+// console.log(future.getDate());
+// console.log(future.getDays());
+// console.log(future.getHours());
+// console.log(future.getMinutes());
+// console.log(future.getSeconds());
+// console.log(future.toISOString());
