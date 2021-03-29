@@ -331,22 +331,22 @@ btnSort.addEventListener('click', function (e) {
 
 // ///////////////////////////////////////////////// 170. The Remainder Operator /////////////////////////////////////////////////
 
-console.log(5 % 2);
-console.log(5 / 2); // 5 = 2 * 2 +1
+// console.log(5 % 2);
+// console.log(5 / 2); // 5 = 2 * 2 +1
 
-console.log(8 % 3);
-console.log(8 / 3); // 8 = 2 * 3 + 2
+// console.log(8 % 3);
+// console.log(8 / 3); // 8 = 2 * 3 + 2
 
-console.log(6 % 3);
-console.log(6 / 3);
+// console.log(6 % 3);
+// console.log(6 / 3);
 
-console.log(7 % 2);
-console.log(7 / 2);
+// console.log(7 % 2);
+// console.log(7 / 2);
 
 const isEven = n => n % 2 === 0;
-console.log(isEven(8));
-console.log(isEven(23));
-console.log(isEven(514));
+// console.log(isEven(8));
+// console.log(isEven(23));
+// console.log(isEven(514));
 
 labelBalance.addEventListener('click', function () {
   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
@@ -356,3 +356,36 @@ labelBalance.addEventListener('click', function () {
     if (i % 3 === 0) row.style.backgroundColor = 'blue';
   });
 });
+
+// ///////////////////////////////////////////////// 171. Working with BigInt /////////////////////////////////////////////////
+
+// console.log(2 ** 53 - 1);
+// console.log(Number.MAX_SAFE_INTEGER);
+// console.log(2 ** 53 + 1);
+// console.log(2 ** 53 + 2);
+// console.log(2 ** 53 + 3);
+// console.log(2 ** 53 + 4);
+
+// console.log(44564654498645454984654544654545646548974545646545n)
+// console.log(BigInt(44564654498645454984654544654545646548974545646545));
+
+//Operation 
+// console.log(10000n + 10000n)
+// console.log(10000n + 44564654498645454984654544654545646548974545646545n)
+
+const huge = 44564654498645454984654544654545646548974545646545n
+const num = 23;
+
+//Exception
+
+// console.log(20n > 15)
+// console.log(20n === 20)
+// console.log(typeof 20n)
+// console.log(20n == '20')  
+
+// console.log(huge + ' is REALLY big!!!');
+
+// Division
+
+// console.log(10n / 3n);
+// console.log(10 / 3)
